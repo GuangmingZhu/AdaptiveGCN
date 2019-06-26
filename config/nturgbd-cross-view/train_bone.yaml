@@ -1,5 +1,5 @@
-work_dir: ./work_dir/ntu/xview/agcn_bone
-model_saved_name: ./runs/ntu_cv_agcn_bone
+work_dir: ./work_dir/ntu/xview/lgcn_bone
+model_saved_name: ./runs/ntu_cv_lgcn_bone/ntu_cv_lgcn_bone
 # feeder
 feeder: feeders.feeder.Feeder
 train_feeder_args:
@@ -17,7 +17,7 @@ test_feeder_args:
   label_path: ./data/ntu/xview/val_label.pkl
 
 # model
-model: model.agcn.Model
+model: model.lgcn.Model
 model_args:
   num_class: 60
   num_point: 25
@@ -32,9 +32,9 @@ base_lr: 0.1
 step: [30, 40]
 
 # training
-device: [4, 5 ,6, 7]
+device: [0, 1, 2, 3]
 batch_size: 64
-test_batch_size: 64
+test_batch_size: 16
 num_epoch: 50
 nesterov: True
 

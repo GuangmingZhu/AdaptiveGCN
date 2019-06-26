@@ -1,5 +1,5 @@
-work_dir: ./work_dir/kinetics/agcn_joint
-model_saved_name: ./runs/ki_agcn_joint
+work_dir: ./work_dir/kinetics/lgcn_joint
+model_saved_name: ./runs/ki_lgcn_joint/ki_lgcn_joint
 
 # feeder
 feeder: feeders.feeder.Feeder
@@ -16,7 +16,7 @@ test_feeder_args:
   label_path: ./data/kinetics/val_label.pkl
 
 # model
-model: model.agcn.Model
+model: model.lgcn.Model
 model_args:
   num_class: 400
   num_person: 2
@@ -33,7 +33,7 @@ step: [45, 55]
 # training
 device: [0, 1, 2, 3]
 batch_size: 128
-test_batch_size: 256
+test_batch_size: 32
 num_epoch: 65
 nesterov: True
 

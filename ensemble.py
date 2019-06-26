@@ -13,16 +13,22 @@ arg = parser.parse_args()
 dataset = arg.datasets
 label = open('./data/' + dataset + '/val_label.pkl', 'rb')
 label = np.array(pickle.load(label))
-r1 = open('./work_dir/' + dataset + '/agcn_test_joint/epoch1_test_score.pkl', 'rb')
+r1 = open('./work_dir/' + dataset + '/lgcn_test_joint/epoch1_test_score.pkl', 'rb')
 r1 = list(pickle.load(r1).items())
-r2 = open('./work_dir/' + dataset + '/agcn_test_bone/epoch1_test_score.pkl', 'rb')
+r2 = open('./work_dir/' + dataset + '/lgcn_test_bone/epoch1_test_score.pkl', 'rb')
 r2 = list(pickle.load(r2).items())
 right_num = total_num = right_num_5 = 0
 for i in tqdm(range(len(label[0]))):
-    _, l = label[:, i]
-    _, r11 = r1[i]
-    _, r22 = r2[i]
-    r = r11 + r22 * arg.alpha
+    name, l = label[:, i]
+    for j in range(len(label[0])):
+        name1, r11 = r1[j]
+        if name == name1:
+            break
+    for j in range(len(label[0])):
+        name2, r22 = r2[j]
+        if name == name2:
+            break
+    r = r11 + r22 * int(arg.alpha)
     rank_5 = r.argsort()[-5:]
     right_num_5 += int(int(l) in rank_5)
     r = np.argmax(r)

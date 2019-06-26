@@ -13,7 +13,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.autograd import Variable
 from tqdm import tqdm
-from tensorboardX import SummaryWriter
+#from tensorboardX import SummaryWriter
 import shutil
 from torch.optim.lr_scheduler import ReduceLROnPlateau, MultiStepLR
 import random
@@ -182,10 +182,10 @@ class Processor():
                         input('Refresh the website of tensorboard by pressing any keys')
                     else:
                         print('Dir not removed: ', arg.model_saved_name)
-                self.train_writer = SummaryWriter(os.path.join(arg.model_saved_name, 'train'), 'train')
-                self.val_writer = SummaryWriter(os.path.join(arg.model_saved_name, 'val'), 'val')
-            else:
-                self.train_writer = self.val_writer = SummaryWriter(os.path.join(arg.model_saved_name, 'test'), 'test')
+            #    self.train_writer = SummaryWriter(os.path.join(arg.model_saved_name, 'train'), 'train')
+            #    self.val_writer = SummaryWriter(os.path.join(arg.model_saved_name, 'val'), 'val')
+            #else:
+            #    self.train_writer = self.val_writer = SummaryWriter(os.path.join(arg.model_saved_name, 'test'), 'test')
         self.global_step = 0
         self.load_model()
         self.load_optimizer()
@@ -331,7 +331,7 @@ class Processor():
         # for name, param in self.model.named_parameters():
         #     self.train_writer.add_histogram(name, param.clone().cpu().data.numpy(), epoch)
         loss_value = []
-        self.train_writer.add_scalar('epoch', epoch, self.global_step)
+        #self.train_writer.add_scalar('epoch', epoch, self.global_step)
         self.record_time()
         timer = dict(dataloader=0.001, model=0.001, statistics=0.001)
         process = tqdm(loader)
@@ -351,8 +351,10 @@ class Processor():
         for batch_idx, (data, label, index) in enumerate(process):
             self.global_step += 1
             # get data
-            data = Variable(data.float().cuda(self.output_device), requires_grad=False)
-            label = Variable(label.long().cuda(self.output_device), requires_grad=False)
+            #data = Variable(data.float().cuda(self.output_device), requires_grad=False)
+            #label = Variable(label.long().cuda(self.output_device), requires_grad=False)
+            data = data.float().cuda(self.output_device)
+            label = label.long().cuda(self.output_device)
             timer['dataloader'] += self.split_time()
 
             # forward
@@ -370,19 +372,19 @@ class Processor():
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
-            loss_value.append(loss.data[0])
+            loss_value.append(loss.item())
             timer['model'] += self.split_time()
 
             value, predict_label = torch.max(output.data, 1)
             acc = torch.mean((predict_label == label.data).float())
-            self.train_writer.add_scalar('acc', acc, self.global_step)
-            self.train_writer.add_scalar('loss', loss.data[0], self.global_step)
-            self.train_writer.add_scalar('loss_l1', l1, self.global_step)
+            #self.train_writer.add_scalar('acc', acc, self.global_step)
+            #self.train_writer.add_scalar('loss', loss.data[0], self.global_step)
+            #self.train_writer.add_scalar('loss_l1', l1, self.global_step)
             # self.train_writer.add_scalar('batch_time', process.iterable.last_duration, self.global_step)
 
             # statistics
             self.lr = self.optimizer.param_groups[0]['lr']
-            self.train_writer.add_scalar('lr', self.lr, self.global_step)
+            #self.train_writer.add_scalar('lr', self.lr, self.global_step)
             # if self.global_step % self.arg.log_interval == 0:
             #     self.print_log(
             #         '\tBatch({}/{}) done. Loss: {:.4f}  lr:{:.6f}'.format(
@@ -423,14 +425,10 @@ class Processor():
             step = 0
             process = tqdm(self.data_loader[ln])
             for batch_idx, (data, label, index) in enumerate(process):
-                data = Variable(
-                    data.float().cuda(self.output_device),
-                    requires_grad=False,
-                    volatile=True)
-                label = Variable(
-                    label.long().cuda(self.output_device),
-                    requires_grad=False,
-                    volatile=True)
+                #data = Variable(data.float().cuda(self.output_device), requires_grad=False)
+                #label = Variable(label.long().cuda(self.output_device), requires_grad=False)
+                data = data.float().cuda(self.output_device)
+                label = label.long().cuda(self.output_device)
                 output = self.model(data)
                 if isinstance(output, tuple):
                     output, l1 = output
@@ -439,7 +437,7 @@ class Processor():
                     l1 = 0
                 loss = self.loss(output, label)
                 score_frag.append(output.data.cpu().numpy())
-                loss_value.append(loss.data[0])
+                loss_value.append(loss.item())
 
                 _, predict_label = torch.max(output.data, 1)
                 step += 1
@@ -459,10 +457,10 @@ class Processor():
                 self.best_acc = accuracy
             # self.lr_scheduler.step(loss)
             print('Accuracy: ', accuracy, ' model: ', self.arg.model_saved_name)
-            if self.arg.phase == 'train':
-                self.val_writer.add_scalar('loss', loss, self.global_step)
-                self.val_writer.add_scalar('loss_l1', l1, self.global_step)
-                self.val_writer.add_scalar('acc', accuracy, self.global_step)
+            #if self.arg.phase == 'train':
+            #    self.val_writer.add_scalar('loss', loss, self.global_step)
+            #    self.val_writer.add_scalar('loss_l1', l1, self.global_step)
+            #    self.val_writer.add_scalar('acc', accuracy, self.global_step)
 
             score_dict = dict(
                 zip(self.data_loader[ln].dataset.sample_name, score))
