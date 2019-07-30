@@ -6,7 +6,7 @@ test_feeder_args:
   debug: False
 
 # model
-model: model.agcn.Model
+model: model.lgcn.Model
 model_args:
   num_class: 400
   num_person: 2
@@ -18,11 +18,11 @@ model_args:
 
 # test 
 phase: test
-device: 0
-test_batch_size: 64
-weights: ./pre_train/ki_agcn_bone.pt
+device: [0, 1, 2, 3]
+test_batch_size: 32
+weights: ./runs/ki_lgcn_bone/ki_lgcn_bone-55-105168.pt
 
 
-work_dir: ./work_dir/kinetics/agcn_test_bone
-model_saved_name: ./runs/ki_agcn_test_bone
+work_dir: ./work_dir/kinetics/lgcn_test_bone
+model_saved_name: ./runs/ki_lgcn_test_bone
 save_score: True

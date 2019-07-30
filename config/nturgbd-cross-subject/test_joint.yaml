@@ -6,7 +6,7 @@ test_feeder_args:
   debug: False
 
 # model
-model: model.agcn.Model
+model: model.lgcn.Model
 model_args:
   num_class: 60
   num_point: 25
@@ -17,10 +17,10 @@ model_args:
 
 # test
 phase: test
-device: [0,1,2,3]
-test_batch_size: 256
-weights: ./runs/ntu_cs_agcn_joint-49-31300.pt
+device: [0, 1, 2, 3]
+test_batch_size: 16
+weights: ./runs/ntu_cs_lgcn_joint/ntu_cs_lgcn_joint-41-26292.pt
 
-work_dir: ./work_dir/ntu/xsub/agcn_test_joint
-model_saved_name: ./runs/ntu_cs_agcn_test_joint
+work_dir: ./work_dir/ntu/xsub/lgcn_test_joint
+model_saved_name: ./runs/ntu_cs_lgcn_test_joint
 save_score: True
