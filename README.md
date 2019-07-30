@@ -1,5 +1,5 @@
-# 2s-AGCN
-Two-Stream Adaptive Graph Convolutional Networks for Skeleton-Based Action Recognition in CVPR19
+# TL-GCN
+Topology-learnable Graph Convolution for Skeleton-based Action Recognition
 
 # Data Preparation
 
@@ -61,4 +61,4 @@ Please cite the following paper if you use this repository in your reseach.
     }
     
 # Contact
-For any questions, feel free to contact: `lei.shi@nlpr.ia.ac.cn`
+For any questions, feel free to contact: `gmzhu@xidian.edu.cn`
