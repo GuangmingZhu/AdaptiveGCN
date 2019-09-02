@@ -156,7 +156,7 @@ class GraphTempLSTM_unit(nn.Module):
 
 
 class Model(nn.Module):
-    def __init__(self, num_class=60, num_point=25, num_person=2, graph=None, graph_args=dict(), in_channels=3, glstm_layers=(1,1),glstm_bidirs=(False,False)):
+    def __init__(self, num_class=60, num_point=25, num_person=2, graph=None, graph_args=dict(), in_channels=3, glstm_layers=(2,2),glstm_bidirs=(True,True)):
         super(Model, self).__init__()
 
         if graph is None:
