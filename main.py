@@ -66,12 +66,12 @@ def get_parser():
     parser.add_argument(
         '--save-interval',
         type=int,
-        default=2,
+        default=1,
         help='the interval for storing models (#iteration)')
     parser.add_argument(
         '--eval-interval',
         type=int,
-        default=5,
+        default=1,
         help='the interval for evaluating models (#iteration)')
     parser.add_argument(
         '--print-log',
@@ -480,8 +480,8 @@ class Processor():
             self.print_log('Parameters:\n{}\n'.format(str(vars(self.arg))))
             self.global_step = self.arg.start_epoch * len(self.data_loader['train']) / self.arg.batch_size
             for epoch in range(self.arg.start_epoch, self.arg.num_epoch):
-                if self.lr < 1e-3:
-                    break
+                #if self.lr < 1e-3:
+                #    break
                 save_model = ((epoch + 1) % self.arg.save_interval == 0) or (
                         epoch + 1 == self.arg.num_epoch)
 
