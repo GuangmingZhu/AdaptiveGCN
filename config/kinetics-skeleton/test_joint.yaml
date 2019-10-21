@@ -6,7 +6,7 @@ test_feeder_args:
   debug: False
 
 # model
-model: model.lgcn.Model
+model: model.egcn.Model
 model_args:
   num_class: 400
   num_person: 2
@@ -20,9 +20,9 @@ model_args:
 phase: test
 device: [0, 1, 2, 3]
 test_batch_size: 32
-weights: ./runs/ki_lgcn_joint/ki_lgcn_joint-55-105168.pt
+weights: ./trainedmodels/ki_egcn_joint.pt
 
 
-work_dir: ./work_dir/kinetics/lgcn_test_joint
-model_saved_name: ./runs/ki_lgcn_test_joint
+work_dir: ./work_dir/kinetics/egcn_test_joint
+model_saved_name: ./runs/ki_egcn_test_joint
 save_score: True

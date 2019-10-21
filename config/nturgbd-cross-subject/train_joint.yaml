@@ -1,5 +1,5 @@
-work_dir: ./work_dir/ntu/xsub/lgcn_joint
-model_saved_name: ./runs/ntu_cs_lgcn_joint/ntu_cs_lgcn_joint
+work_dir: ./work_dir/ntu/xsub/egcn_joint
+model_saved_name: ./runs/ntu_cs_egcn_joint/ntu_cs_egcn_joint
 # feeder
 feeder: feeders.feeder.Feeder
 train_feeder_args:
@@ -17,7 +17,7 @@ test_feeder_args:
   label_path: ./data/ntu/xsub/val_label.pkl
 
 # model
-model: model.lgcn.Model
+model: model.egcn.Model
 model_args:
   num_class: 60
   num_point: 25
@@ -29,7 +29,7 @@ model_args:
 #optim
 weight_decay: 0.0001
 base_lr: 0.1
-step: [30, 40]
+step: [20, 30, 40]
 
 # training
 device: [0, 1, 2, 3]
@@ -37,4 +37,3 @@ batch_size: 64
 test_batch_size: 16
 num_epoch: 50
 nesterov: True
-
