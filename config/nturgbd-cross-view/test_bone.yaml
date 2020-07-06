@@ -6,7 +6,7 @@ test_feeder_args:
   debug: False
 
 # model
-model: model.egcn.Model
+model: model.rgcn.Model
 model_args:
   num_class: 60
   num_point: 25
@@ -20,8 +20,8 @@ model_args:
 phase: test
 device: [0, 1, 2, 3]
 test_batch_size: 16
-weights: ./trainedmodels/ntu_cv_egcn_bone.pt
+weights: ./trainedmodels/ntu_cv_rgcn_bone.pt
 
-work_dir: ./work_dir/ntu/xview/egcn_test_bone
-model_saved_name: ./runs/ntu_cv_egcn_test_bone
+work_dir: ./work_dir/ntu/xview/rgcn_test_bone
+model_saved_name: ./runs/ntu_cv_rgcn_test_bone
 save_score: True

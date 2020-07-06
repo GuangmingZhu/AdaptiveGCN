@@ -1,5 +1,5 @@
-work_dir: ./work_dir/kinetics/egcn_bone
-model_saved_name: ./runs/ki_egcn_bone/ki_egcn_bone
+work_dir: ./work_dir/kinetics/rgcn_bone
+model_saved_name: ./runs/ki_rgcn_bone/ki_rgcn_bone
 
 # feeder
 feeder: feeders.feeder.Feeder
@@ -16,7 +16,7 @@ test_feeder_args:
   label_path: ./data/kinetics/val_label.pkl
 
 # model
-model: model.egcn.Model
+model: model.rgcn.Model
 model_args:
   num_class: 400
   num_person: 2
