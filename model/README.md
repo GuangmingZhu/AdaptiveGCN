@@ -3,9 +3,9 @@
     @article{zhu2020prl,
       title     = {Topology-learnable graph convolution for skeleton-based action recognition},  
       author    = {Guangming Zhu and Liang Zhang and Hongsheng Li and Peiyi Shen and Syed Afaq Ali Shah and Mohammed Bennamoun},  
-      journal	= {Pattern Recognition Letters},  
-      volume	= {135},
-      pages	= {286-292},
+      journal   = {Pattern Recognition Letters},  
+      volume    = {135},
+      pages     = {286-292},
       year      = {2020},
     }
 ### 2. Recurrent Graph Convolutional Networks [referred to rgcn.py]
